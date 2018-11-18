@@ -55,6 +55,7 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
+*.db
 
 # Flask stuff:
 instance/
@@ -93,6 +94,9 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+
+# PyCharm project settings
+.idea
 
 # Rope project settings
 .ropeproject
