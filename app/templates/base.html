@@ -1,6 +1,12 @@
 {% extends 'bootstrap/base.html' %}
 
-{% block title %} Homecam {% endblock %}
+{% block title %}
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Homecam
+    {% endif %}
+{% endblock %}
 
 {% block navbar %}
 <nav class="navbar navbar-inverse">
@@ -24,5 +30,13 @@
 </nav>
 {% endblock %}
 
-{% block content %}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        {% block page_content %}
+            
+        {% endblock %}
+    </div>
+{% endblock %}
     
