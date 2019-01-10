@@ -1,11 +1,11 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-    {% if title %}
-        {{ title }}
-    {% else %}
-        Homecam
-    {% endif %}
+{% if title %}
+{{ title }}
+{% else %}
+Homecam
+{% endif %}
 {% endblock %}
 
 {% block navbar %}
@@ -27,9 +27,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_anonymous %}
-                    <li><a href="{{url_for('login')}}">Login</a></li>
+                <li><a href="{{url_for('login')}}">Login</a></li>
                 {% else %}
-                    <li><a href="{{url_for('logout')}}">Logout</a></li>
+                <li><a href="{{url_for('logout')}}">Logout</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -38,12 +38,17 @@
 {% endblock %}
 
 
-
 {% block content %}
-    <div class="container">
-        {% block page_content %}
-            
-        {% endblock %}
-    </div>
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block page_content %} {% endblock %}
+</div>
 {% endblock %}
     
