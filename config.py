@@ -8,3 +8,4 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    IP_WEBCAM_PHOTO_URL = "http://10.0.0.160:8080/photo.jpg"
