@@ -6,7 +6,7 @@ from datetime import datetime
 from time import strftime
 
 from app.webcam import bp
-
+from app.models import Image
 
 @bp.route('/photo')
 @login_required
@@ -18,10 +18,15 @@ def photo():
 @bp.route('/save_photo/')
 @login_required
 def save_photo():
-    img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
-    img_dir = current_app.config['WEBCAM_IMAGE_DIR']
-    img_file_name = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg"
-    urlretrieve(img_url, img_dir + "/" + img_file_name)
-    flash('Image was saved as: ' + img_file_name)
+
+    image = Image(post=True)
+    flash('Image was saved as: ' + image.filename)
     return redirect(url_for('webcam.photo'))
+
+
+@bp.route('/show_gallery/')
+@login_required
+def show_gallery():
+    return render_template('webcam/gallery.html')
+
 

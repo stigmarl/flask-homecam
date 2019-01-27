@@ -24,6 +24,7 @@ Homecam
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('webcam.photo') }}">Snapshot</a></li>
+                <li><a href="{{ url_for('webcam.show_gallery') }}">Gallery</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_anonymous %}
@@ -31,6 +32,7 @@ Homecam
                 {% else %}
                 <li><a href="#">{{ current_user.username }}</a></li>
                 <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
+                
                 {% endif %}
             </ul>
         </div>

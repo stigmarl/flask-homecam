@@ -1,5 +1,11 @@
+import os
+from urllib.request import urlretrieve
+from time import strftime
+from datetime import datetime
+
 from app import db, login
 
+from flask import current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 
@@ -22,3 +28,24 @@ class User(db.Model, UserMixin):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Image(object):
+    def __init__(self, filename=None, post=False):
+        self.root = current_app.config['GALLERY_ROOT_DIR']
+
+        if filename is None:
+            self.filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg"
+
+        if post:
+            print('Uploading image')
+            self.upload(self.filename)
+
+    def upload(self, filename):
+        img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
+        urlretrieve(img_url, os.path.join(self.root, filename))
+
+    @classmethod
+    def all(cls, root):
+        """Return a list of all files contained in directory root"""
+        return [cls(x) for x in os.listdir(root)]

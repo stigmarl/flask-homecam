@@ -9,4 +9,4 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     IP_WEBCAM_PHOTO_URL = "http://192.168.1.192:8080/photo.jpg"
-    WEBCAM_IMAGE_DIR = os.path.join(basedir, 'images')
+    GALLERY_ROOT_DIR = os.path.join(basedir, 'images')
