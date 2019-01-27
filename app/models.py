@@ -34,8 +34,10 @@ class Image(object):
     def __init__(self, filename=None, post=False):
         self.root = current_app.config['GALLERY_ROOT_DIR']
 
+        self.filename = filename
+
         if filename is None:
-            self.filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".jpg"
+            self.filename = datetime.now().strftime("%Y%m%d-%H:%M:%S") + ".jpg"
 
         if post:
             print('Uploading image')

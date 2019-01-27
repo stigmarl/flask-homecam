@@ -18,7 +18,6 @@ def photo():
 @bp.route('/save_photo/')
 @login_required
 def save_photo():
-
     image = Image(post=True)
     flash('Image was saved as: ' + image.filename)
     return redirect(url_for('webcam.photo'))
@@ -27,6 +26,10 @@ def save_photo():
 @bp.route('/show_gallery/')
 @login_required
 def show_gallery():
-    return render_template('webcam/gallery.html')
+    root_dir = current_app.config['GALLERY_ROOT_DIR']
+    images = Image.all(root_dir)
+    for image in images:
+        print(image.filename)
+    return render_template('webcam/gallery.html', images=images)
 
 
