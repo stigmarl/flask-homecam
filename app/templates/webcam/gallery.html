@@ -8,7 +8,7 @@
 
     <div class="row text-lg-left">
 
-        {% for image in images %}
+        {% for image in images | sort(attribute='filename', reverse=True) %}
         <div class="col-lg-3 col-md-4 col-xs-6">
             
             <div class="thumbnail">
