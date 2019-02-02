@@ -8,21 +8,29 @@
 
     <div class="row text-lg-left">
 
-        {% for image in images | sort(attribute='filename', reverse=True) %}
-        <div class="col-lg-3 col-md-4 col-xs-6">
-            
-            <div class="thumbnail">
-                <a href="{{ url_for('static', filename='images/' + image.filename)}}" class="d-block mb-4 h-100">
-                    <img class="img-fluid img-thumbnail"
-                         src="{{ url_for('static', filename='images/' + image.filename)}}" alt="">
-                </a>
-                <div class="caption">
-                    <p>{{ image.filename }}</p>
-                    <p><a href="#" class="btn btn-primary" role="button">More info</a></p>
+
+        {% if images|length > 0 %}
+            {% for image in images | sort(attribute='filename', reverse=True) %}
+            <div class="col-lg-3 col-md-4 col-xs-6">
+
+                <div class="thumbnail">
+                    <a href="{{ url_for('static', filename='images/' + image.filename) }}" class="d-block mb-4 h-100">
+                        <img class="img-fluid img-thumbnail"
+                             src="{{ url_for('static', filename='images/' + image.filename) }}" alt="">
+                    </a>
+                    <div class="caption">
+                        <p>{{ image.filename }}</p>
+                        <p><a href="#" class="btn btn-primary" role="button">More info</a></p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <strong>Heads up!</strong>
+                There are no photos here.
+            </div>
+        {% endif %}
     </div>
 
 </div>
