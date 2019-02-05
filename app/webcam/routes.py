@@ -24,12 +24,12 @@ def save_photo():
     return redirect(url_for('webcam.photo'))
 
 
-@bp.route('/delete_photo/<filename>', methods=['POST'])
+@bp.route('/delete_photo/<filename>')
 @login_required
 def delete_photo(filename):
     if filename in os.listdir(current_app.config['GALLERY_ROOT_DIR']):
         os.remove(os.path.join(current_app.config['GALLERY_ROOT_DIR'], filename))
-        flash(filename + ' removed!', 'success')
+        flash('{} removed!'.format(filename), 'success')
 
     return redirect(url_for('webcam.show_gallery'))
 
