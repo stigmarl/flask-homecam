@@ -3,25 +3,31 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="my-4 text-center text-lg-left">Thumbnail Gallery</h1>
+    <h1 class="title has-text-grey">Thumbnail Gallery</h1>
 
 
-    <div class="row text-lg-left">
+    <div class="columns">
 
 
         {% if images|length > 0 %}
             {% for image in images | sort(attribute='filename', reverse=True) %}
-            <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="column is-4">
 
-                <div class="thumbnail">
-                    <a href="{{ url_for('static', filename='images/' + image.filename) }}" class="d-block mb-4 h-100">
-                        <img class="img-fluid img-thumbnail"
-                             src="{{ url_for('static', filename='images/' + image.filename) }}" alt="">
-                    </a>
-                    <div class="caption">
-                        <p>{{ image.filename }}</p>
-                        <p><a href="#" class="btn btn-primary" role="button">More info</a></p>
-                    </div>
+                <div class="box">
+                    <article class="media-heading">
+                        <figure class="image">
+                            <a href="{{ url_for('static', filename='images/' + image.filename) }}" class="d-block mb-4 h-100">
+                                <img class="img-fluid img-thumbnail"
+                                     src="{{ url_for('static', filename='images/' + image.filename) }}" alt="">
+                            </a>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>{{ image.filename }}</p>
+                                <p><a href="#" class="button is-dark" role="button">More info</a></p>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
             {% endfor %}
