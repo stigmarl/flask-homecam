@@ -37,7 +37,7 @@ class Image(object):
         self.filename = filename
 
         if filename is None:
-            self.filename = datetime.now().strftime("%Y%m%d-%H:%M:%S") + ".jpg"
+            self.filename = datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".jpg"
 
         if post:
             print('Uploading image')
@@ -47,7 +47,7 @@ class Image(object):
         img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
         file_url = os.path.join(self.root, filename)
         try:
-            urlretrieve(img_url, file_url)
+            urlretrieve(img_url, filename=file_url)
             flash('Image was saved as: ' + filename, 'success')
         except OSError as err:
             print(err)

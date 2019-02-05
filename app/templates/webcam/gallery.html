@@ -6,7 +6,7 @@
     <h1 class="title has-text-grey">Thumbnail Gallery</h1>
 
 
-    <div class="columns">
+    <div class="columns is-multiline">
 
 
         {% if images|length > 0 %}
@@ -16,9 +16,9 @@
                 <div class="box">
                     <article class="media-heading">
                         <figure class="image">
-                            <a href="{{ url_for('static', filename='images/' + image.filename) }}" class="d-block mb-4 h-100">
+                            <a href="{{ url_for('static', filename='photos/' + image.filename) }}" class="d-block mb-4 h-100">
                                 <img class="img-fluid img-thumbnail"
-                                     src="{{ url_for('static', filename='images/' + image.filename) }}" alt="">
+                                     src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
                             </a>
                         </figure>
                         <div class="media-content">

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <title>{% if title %}
         {{ title }}
     {% else %}
@@ -27,45 +28,49 @@
 
 
 {% block navbar %}
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a href="#" class="navbar-item">
-                HomeCam
-            </a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-               data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
-                    Snapshot
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+       <div class="container">
+            <div class="navbar-brand">
+                <a href="#" class="navbar-item">
+                    <strong>HomeCam</strong>
                 </a>
-                <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
-                    Gallery
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                   data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
-
             </div>
-        </div>
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-
-                    {% if current_user.is_anonymous %}
-                        <a href="{{ url_for('auth.login') }}" class="button is-primary">
-                            <strong>Login</strong>
-                        </a>
-                    {% else %}
-                        <a href="{{ url_for('auth.logout') }}" class="button is-light">
-                            Logout
-                        </a>
-                    {% endif %}
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
+                        <span class="icon has-text-info"><i class="fas fa-camera"></i></span>
+                        <span>Snapshot</span>
+                    </a>
+                    <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
+                        <span class="icon has-text-danger"><i class="fas fa-images"></i></span>
+                        <span>Gallery</span>
+                    </a>
+    
                 </div>
             </div>
-        </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+    
+                        {% if current_user.is_anonymous %}
+                            <a href="{{ url_for('auth.login') }}" class="button is-primary">
+                                <strong>Login</strong>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('auth.logout') }}" class="button is-light">
+                                Logout
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+       </div>
     </nav>
 {% endblock %}
 

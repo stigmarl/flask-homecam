@@ -10,4 +10,4 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     IP_WEBCAM_PHOTO_URL = os.environ.get('IP_WEBCAM_PHOTO_URL') \
         or "http://192.168.1.192:8080/photo.jpg"
-    GALLERY_ROOT_DIR = os.path.join(basedir, 'app', 'static', 'images')
+    GALLERY_ROOT_DIR = os.path.join(basedir, 'app', 'static', 'photos')
