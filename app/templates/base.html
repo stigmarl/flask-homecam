@@ -1,104 +1,92 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-
-</body>
-</html>
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/toggle-burger.js')}}"></script>
+
     <title>{% if title %}
         {{ title }}
-    {% else %}
+        {% else %}
         Homecam
-    {% endif %}
+        {% endif %}
     </title>
 </head>
 
 
-
 {% block navbar %}
-    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
-       <div class="container">
-            <div class="navbar-brand">
-                <a href="#" class="navbar-item">
-                    <strong>HomeCam</strong>
+<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item">
+                <strong>HomeCam</strong>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+               data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
+                    <span class="icon has-text-info"><i class="fas fa-camera"></i></span>
+                    <span>Snapshot</span>
                 </a>
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                   data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
+                <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
+                    <span class="icon has-text-danger"><i class="fas fa-images"></i></span>
+                    <span>Gallery</span>
                 </a>
+
             </div>
-            <div class="navbar-menu">
-                <div class="navbar-start">
-                    <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
-                        <span class="icon has-text-info"><i class="fas fa-camera"></i></span>
-                        <span>Snapshot</span>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('auth.login') }}" class="button is-primary">
+                        <strong>Login</strong>
                     </a>
-                    <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
-                        <span class="icon has-text-danger"><i class="fas fa-images"></i></span>
-                        <span>Gallery</span>
+                    {% else %}
+                    <a href="{{ url_for('auth.logout') }}" class="button is-light">
+                        Logout
                     </a>
-    
+                    {% endif %}
                 </div>
             </div>
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-    
-                        {% if current_user.is_anonymous %}
-                            <a href="{{ url_for('auth.login') }}" class="button is-primary">
-                                <strong>Login</strong>
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('auth.logout') }}" class="button is-light">
-                                Logout
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-       </div>
-    </nav>
+        </div>
+    </div>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <div class="section">
-        <div class="container">
-            {% with messages = get_flashed_messages(with_categories=True) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="columns">
-                            <div class="column is-half">
-                                <article class="message is-{{ category }}">
-                                    <div class="message-header">
-                                        <p>{{ category|capitalize }}</p>
-                                    </div>
-                                    <div class="message-body">
-                                        {{ message }}
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            {% block page_content %} {% endblock %}
+<div class="section">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="columns">
+            <div class="column is-half">
+                <article class="message is-{{ category }}">
+                    <div class="message-header">
+                        <p>{{ category|capitalize }}</p>
+                    </div>
+                    <div class="message-body">
+                        {{ message }}
+                    </div>
+                </article>
+            </div>
         </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block page_content %} {% endblock %}
     </div>
+</div>
 
 {% endblock %}
-
-
