@@ -8,6 +8,7 @@ from time import strftime
 from app.webcam import bp
 from app.models import Image
 
+
 @bp.route('/photo')
 @login_required
 def photo():
@@ -19,7 +20,6 @@ def photo():
 @login_required
 def save_photo():
     image = Image(post=True)
-    flash('Image was saved as: ' + image.filename)
     return redirect(url_for('webcam.photo'))
 
 

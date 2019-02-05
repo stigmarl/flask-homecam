@@ -1,63 +1,97 @@
-{% extends 'bootstrap/base.html' %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
 
-{% block head %}
-    {{ super() }}
+</body>
+</html>
+
+<head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
-{% endblock %}
-
-{% block title %}
-    {% if title %}
+    <title>{% if title %}
         {{ title }}
     {% else %}
         Homecam
     {% endif %}
-{% endblock %}
+    </title>
+</head>
+
 
 
 {% block navbar %}
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">Homecam</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('webcam.photo') }}">Snapshot</a></li>
-                    <li><a href="{{ url_for('webcam.show_gallery') }}">Gallery</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_anonymous %}
-                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                    {% else %}
-                        <li><a href="#">{{ current_user.username }}</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item">
+                HomeCam
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+               data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
+                    Snapshot
+                </a>
+                <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
+                    Gallery
+                </a>
 
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+
+                    {% if current_user.is_anonymous %}
+                        <a href="{{ url_for('auth.login') }}" class="button is-primary">
+                            <strong>Login</strong>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('auth.logout') }}" class="button is-light">
+                            Logout
+                        </a>
                     {% endif %}
-                </ul>
+                </div>
             </div>
         </div>
     </nav>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-info" role="alert">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        {% block page_content %} {% endblock %}
+    <div class="section">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="columns">
+                            <div class="column is-half">
+                                <article class="message is-{{ category }}">
+                                    <div class="message-header">
+                                        <p>{{ category|capitalize }}</p>
+                                    </div>
+                                    <div class="message-body">
+                                        {{ message }}
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block page_content %} {% endblock %}
+        </div>
     </div>
 
 {% endblock %}

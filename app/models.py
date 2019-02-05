@@ -5,7 +5,7 @@ from datetime import datetime
 
 from app import db, login
 
-from flask import current_app
+from flask import current_app, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 
@@ -45,7 +45,13 @@ class Image(object):
 
     def upload(self, filename):
         img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
-        urlretrieve(img_url, os.path.join(self.root, filename))
+        file_url = os.path.join(self.root, filename)
+        try:
+            urlretrieve(img_url, file_url)
+            flash('Image was saved as: ' + filename, 'success')
+        except OSError as err:
+            print(err)
+            flash('Could not save image!', 'danger')
 
     @classmethod
     def all(cls, root):
