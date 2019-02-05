@@ -10,32 +10,35 @@
 
 
         {% if images|length > 0 %}
-            {% for image in images | sort(attribute='filename', reverse=True) %}
-            <div class="column is-4-desktop is-6-tablet">
+        {% for image in images | sort(attribute='filename', reverse=True) %}
+        <div class="column is-4-desktop is-6-tablet">
 
-                <div class="box">
-                    <article class="media-heading">
-                        <figure class="image">
-                            <a href="{{ url_for('static', filename='photos/' + image.filename) }}" class="d-block mb-4 h-100">
-                                <img class="img-fluid img-thumbnail"
-                                     src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
-                            </a>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>{{ image.filename }}</p>
-                                <p><a href="#" class="button is-dark" role="button">More info</a></p>
-                            </div>
-                        </div>
-                    </article>
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image">
+                        <a href="{{ url_for('static', filename='photos/' + image.filename) }}"
+                           class="d-block mb-4 h-100">
+                            <img class="img-fluid img-thumbnail"
+                                 src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
+                        </a>
+                    </figure>
+                    <div class="card-content is-overlay is-clipped">
+                        <span class="tag is-info">
+                            {{ image.filename }}
+                        </span>
+                    </div>
                 </div>
+                <footer class="card-footer">
+                    <a class="button card-footer-item" role="button" href="#">More info</a>
+                </footer>
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
         {% else %}
-            <div class="alert alert-info" role="alert">
-                <strong>Heads up!</strong>
-                There are no photos here.
-            </div>
+        <div class="alert alert-info" role="alert">
+            <strong>Heads up!</strong>
+            There are no photos here.
+        </div>
         {% endif %}
     </div>
 
