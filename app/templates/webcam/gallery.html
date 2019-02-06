@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block page_content %}
 <div class="container">
     <h1 class="title has-text-grey">Thumbnail Gallery</h1>
     <div class="columns is-multiline">
 
-    {% if images|length > 0 %}
-    {% for image in images | sort(attribute='filename', reverse=True) %}
+    {% if photos|length > 0 %}
+    {% for photo in photos | sort(attribute='filename', reverse=True) %}
         <div class="column is-4-desktop is-6-tablet">
             <div class="card">
                 <div class="card-image">
                     <figure class="image">
                         <img onclick="openCardModal({{ loop.index }})"
-                             src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
+                             src="{{ url_for('static', filename='photos/' + photo.filename) }}" alt="">
                     </figure>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" role="button" href="#">More info</a>
-                    <a href="{{ url_for('webcam.delete_photo', filename=image.filename) }}"
+                    <a href="{{ url_for('webcam.delete_photo', filename=photo.filename) }}"
                        class="card-footer-item">Delete</a>
                 </footer>
             </div>
@@ -26,7 +26,7 @@
             <div class="modal-background"></div>
             <div class="modal-content is-huge is-image">
                 <!-- content -->
-                <img src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="image">
+                <img src="{{ url_for('static', filename='photos/' + photo.filename) }}" alt="image">
                 <!-- end content -->
             </div>
             <button onclick="closeCardModal({{ loop.index }})"

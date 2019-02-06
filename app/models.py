@@ -30,30 +30,15 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class Image(object):
-    def __init__(self, filename=None, post=False):
-        self.root = current_app.config['GALLERY_ROOT_DIR']
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(64))
+    file_path = db.Column(db.String(128), unique=True)
 
-        self.filename = filename
-
-        if filename is None:
-            self.filename = datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".jpg"
-
-        if post:
-            print('Uploading image')
-            self.upload(self.filename)
-
-    def upload(self, filename):
+    def save_photo(self):
         img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
-        file_url = os.path.join(self.root, filename)
-        try:
-            urlretrieve(img_url, filename=file_url)
-            flash('Image was saved as: ' + filename, 'success')
-        except OSError as err:
-            print(err)
-            flash('Could not save image!', 'danger')
 
-    @classmethod
-    def all(cls, root):
-        """Return a list of all files contained in directory root"""
-        return [cls(x) for x in os.listdir(root)]
+        urlretrieve(img_url, filename=self.file_path)
+
+    def delete_photo(self):
+        os.remove(self.file_path)
