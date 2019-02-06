@@ -34,6 +34,7 @@ class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(64))
     file_path = db.Column(db.String(128), unique=True)
+    created = db.Column(db.DateTime, default=datetime.now())
 
     def save_photo(self):
         img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
