@@ -18,24 +18,15 @@
                         <a href="{{ url_for('static', filename='photos/' + image.filename) }}">
                             <img src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
                         </a>
-                        <div id="photo" class="card-content is-overlay is-clipped">
-                            <div class="tags has-addons is-pulled-right">
-                            <span class="tag is-info">
-                                {{ image.filename }}
-                            </span>
-                                <a class="tag is-delete is-danger"></a>
-                            </div>
-                        </div>
+
 
                     </figure>
                 </div>
 
                 <footer class="card-footer">
-                    <form action="{{ url_for('webcam.delete_photo', filename=image.filename) }}" method="post">
-                        <input type="submit" value="Delete">
-                        <a class="button card-footer-item" role="button" href="#">More info</a>
-                    </form>
-
+                    <a class="card-footer-item" role="button" href="#">More info</a>
+                    <a href="{{ url_for('webcam.delete_photo', filename=image.filename) }}"
+                       class="card-footer-item">Delete</a>
                 </footer>
             </div>
         </div>
