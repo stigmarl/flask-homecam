@@ -2,9 +2,8 @@ from flask import render_template, current_app, redirect, url_for, flash
 from flask_login import login_required
 import os
 
-from urllib.request import urlretrieve
-from datetime import datetime
-from time import strftime
+from urllib.request import urlopen
+from urllib.error import URLError, HTTPError
 
 from app.webcam import bp
 from app.models import Image
@@ -14,6 +13,15 @@ from app.models import Image
 @login_required
 def photo():
     img_url = current_app.config['IP_WEBCAM_PHOTO_URL']
+    try:
+        response = urlopen(img_url, timeout=3).getcode()
+    except URLError as e:
+        #print('Error:', e.reason)
+        flash('Error: {0}'.format(str(e.errno)), 'danger')
+        return redirect(url_for('main.index'))
+    else:
+        print("All ok")
+
     return render_template('webcam/photo.html', img_url=img_url)
 
 
