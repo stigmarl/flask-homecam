@@ -8,4 +8,14 @@ $(document).ready(function () {
             $(el).toggleClass("is-active");
         });
     });
+
+
 });
+
+function openCardModal(index) {
+    $("#modal-"+index.toString()).addClass('is-active');
+}
+
+function closeCardModal(index) {
+    $("#modal-"+index.toString()).removeClass('is-active');
+}

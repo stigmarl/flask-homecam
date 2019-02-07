@@ -1,45 +1,44 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
 <div class="container">
     <h1 class="title has-text-grey">Thumbnail Gallery</h1>
-
-
     <div class="columns is-multiline">
 
-
-        {% if images|length > 0 %}
-        {% for image in images | sort(attribute='filename', reverse=True) %}
+    {% if photos|length > 0 %}
+    {% for photo in photos | sort(attribute='filename', reverse=True) %}
         <div class="column is-4-desktop is-6-tablet">
             <div class="card">
                 <div class="card-image">
                     <figure class="image">
-                        <a href="{{ url_for('static', filename='photos/' + image.filename) }}">
-                            <img src="{{ url_for('static', filename='photos/' + image.filename) }}" alt="">
-                        </a>
-
+                        <img onclick="openCardModal({{ loop.index }})"
+                             src="{{ url_for('static', filename='photos/' + photo.filename) }}" alt="">
                     </figure>
-                </div>
-                <div id="photo" class="card-content">
-                    <div class="content">
-                        {{ image.filename }}
-                    </div>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" role="button" href="#">More info</a>
-                    <a class="card-footer-item" role="button" href="{{ url_for('webcam.delete_photo', filename=image.filename) }}">Delete</a>
+                    <a href="{{ url_for('webcam.delete_photo', filename=photo.filename) }}"
+                       class="card-footer-item">Delete</a>
                 </footer>
             </div>
         </div>
-        {% endfor %}
-        {% else %}
+        <div id="modal-{{ loop.index }}" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content is-huge is-image">
+                <!-- content -->
+                <img src="{{ url_for('static', filename='photos/' + photo.filename) }}" alt="image">
+                <!-- end content -->
+            </div>
+            <button onclick="closeCardModal({{ loop.index }})"
+                    class="modal-close is-large" aria-label="close"></button>
+        </div>
+    {% endfor %}
+    {% else %}
         <div class="alert alert-info" role="alert">
             <strong>Heads up!</strong>
             There are no photos here.
         </div>
-        {% endif %}
-    </div>
-
+    {% endif %}
+</div>
 </div>
 {% endblock %}
