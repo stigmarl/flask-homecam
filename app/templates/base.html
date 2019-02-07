@@ -33,11 +33,11 @@
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a href="{{ url_for('webcam.photo') }}" class="navbar-item">
+                <a href="{{ url_for('webcam.photo') }}" class="navbar-item has-text-black-ter">
                     <span class="icon has-text-info"><i class="fas fa-camera"></i></span>
                     <span>Snapshot</span>
                 </a>
-                <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item">
+                <a href="{{ url_for('webcam.show_gallery') }}" class="navbar-item has-text-black-ter">
                     <span class="icon has-text-danger"><i class="fas fa-images"></i></span>
                     <span>Gallery</span>
                 </a>
@@ -49,7 +49,7 @@
                 <div class="buttons">
 
                     {% if current_user.is_anonymous %}
-                    <a href="{{ url_for('auth.login') }}" class="button is-primary">
+                    <a href="{{ url_for('auth.login') }}" class="button is-light">
                         <strong>Login</strong>
                     </a>
                     {% else %}
