@@ -33,9 +33,9 @@ def save_photo():
     file_url = os.path.join(current_app.config['GALLERY_ROOT_DIR'], filename)
     try:
         p = Photo(filename=filename, file_path=file_url)
-        p.save_photo()
         db.session.add(p)
         db.session.commit()
+        p.save_photo()
         flash('Image was saved as: ' + filename, 'success')
     except URLError as e:
         flash('Error: {0}'.format(str(e.errno)), 'warning')
@@ -48,9 +48,9 @@ def save_photo():
 def delete_photo(filename):
     p = Photo.query.filter_by(filename=filename).first()
     if p is not None:
-        p.delete_photo()
         db.session.delete(p)
         db.session.commit()
+        p.delete_photo()
         flash('{} deleted.'.format(filename), 'success')
     else:
         flash('Could not delete photo.', 'warning')
